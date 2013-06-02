@@ -83,7 +83,7 @@ public class ItemDao {
   	Log.w(this.getClass().getName(), "Checking items exists:");
   	List<Item> items = getAllItems();
   	for(Item item : items){
-  		Log.w(this.getClass().getName(), "  Item: " + item.getName());
+  		Log.w(this.getClass().getName(), "   Item: " + item.getName());
   	}
   }
 

@@ -28,7 +28,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
   	new ItemTable().onCreate(database);
   	//initDefaultItems(database);
 	  //new ItemTable().initDefaultItems(database);
-
   }
 
   @Override

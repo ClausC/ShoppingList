@@ -72,8 +72,7 @@ public class ShoppingActivity extends Activity {
 		// this activity.
 		mSystemUiHider = SystemUiHider.getInstance(this, contentView, HIDER_FLAGS);
 		mSystemUiHider.setup();
-		mSystemUiHider
-		.setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
+		mSystemUiHider.setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
 			// Cached values.
 			int mControlsHeight;
 			int mShortAnimTime;
