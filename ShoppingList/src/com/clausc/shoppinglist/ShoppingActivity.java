@@ -55,14 +55,11 @@ public class ShoppingActivity extends Activity {
 	 */
 	private SystemUiHider mSystemUiHider;
 	private ItemDao datasource;
-	
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		datasource = new ItemDao(this);
-		List<Item> values = datasource.getAllItems();
+		List<Item> values = datasource.getAll();
 		setContentView(R.layout.activity_shopping);
 
 		final View controlsView = findViewById(R.id.fullscreen_content_controls);

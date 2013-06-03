@@ -5,12 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.clausc.shoppinglist.dao.ItemDao;
-import com.clausc.shoppinglist.model.Item;
 
 public class ItemTable {
   public static final String TABLE_ITEM = "Item";
@@ -18,6 +16,12 @@ public class ItemTable {
   public static final String COLUMN_NAME = "Name";
   public static final String COLUMN_AMOUNT = "Amount";
 
+  private static List<String> stockItems = new ArrayList<String>(Arrays.asList("Agurk","Tomat","Salat", 
+  		"Mælk", "Rugbrød", "Kærgården", "Havregryn", "Rosiner", "Ris", "Pasta", "Kartofler", 
+  		"Remoulade", "Ketchup", "Mayonnaise", "Spareribs", "Makrel i tomat", "Laks", "Mel", "Gær",
+  		"Frikadeller", "Sushi", "Hakket svinekød", "Hakket oksekød", "Salt", "Peber", "Oregano", 
+  		"Grøntsager frost", "Peberfrugt", "Løg", "Hvidløg", "Hvidkål", "Rødløg", "Blegselleri", "Champignon", "Plasticposer")); 
+  
   // Database creation SQL statement
   private static final String DATABASE_CREATE = "create table " 
       + TABLE_ITEM
@@ -27,9 +31,18 @@ public class ItemTable {
       + COLUMN_AMOUNT + " integer null" 
       + ");";
   
+  private void initDefaultItems(SQLiteDatabase db){
+  	for(String item : stockItems){
+  		ItemDao.save(db, item);
+  		Log.w(this.getClass().getName(), "Saving item to DB: " + item);
+  	}
+  }
+  
   public void onCreate(SQLiteDatabase db) {
   	Log.w(ItemTable.class.getName(), "onCreate");
   	db.execSQL(DATABASE_CREATE);
+  	Log.w(ItemTable.class.getName(), "prepopulate defaultItems");
+  	initDefaultItems(db);
   }
 
   public void onUpgrade(SQLiteDatabase db, int oldVersion,int newVersion) {

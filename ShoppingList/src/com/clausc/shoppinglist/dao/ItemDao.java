@@ -24,11 +24,6 @@ public class ItemDao {
   private SQLiteDatabase database;
   private MySQLiteHelper dbHelper;
   private String[] allColumns = { ItemTable.COLUMN_ID,ItemTable.COLUMN_NAME, ItemTable.COLUMN_AMOUNT };
-  private static List<String> stockItems = new ArrayList<String>(Arrays.asList("Agurk","Tomat","Salat", 
-  		"Mælk", "Rugbrød", "Kærgården", "Havregryn", "Rosiner", "Ris", "Pasta", "Kartofler", 
-  		"Remoulade", "Ketchup", "Mayonnaise", "Spareribs", "Makrel i tomat", "Laks", "Mel", "Gær",
-  		"Frikadeller", "Sushi", "Hakket svinekød", "Hakket oksekød", "Salt", "Peber", "Oregano", 
-  		"Grøntsager frost", "Peberfrugt", "Løg", "Hvidløg", "Hvidkål", "Rødløg", "Blegselleri", "Champignon", "Plasticposer")); 
 
   public ItemDao(Context context) {
     dbHelper = new MySQLiteHelper(context);
@@ -43,7 +38,7 @@ public class ItemDao {
     dbHelper.close();
   }
 
-  public Item createItem(String item) {
+  public Item save(String item) {
     ContentValues values = new ContentValues();
     values.put(ItemTable.COLUMN_NAME, item);
     long insertId = database.insert(ItemTable.TABLE_ITEM, null,values);
@@ -54,13 +49,19 @@ public class ItemDao {
     return newItem;
   }
 
-  public void deleteItem(Item item) {
+  public static void save(SQLiteDatabase db, String item) {
+    ContentValues values = new ContentValues();
+    values.put(ItemTable.COLUMN_NAME, item);
+    long insertId = db.insert(ItemTable.TABLE_ITEM, null,values);
+  }
+
+  public void delete(Item item) {
     int id = item.getId();
     System.out.println("Comment deleted with id: " + id);
     database.delete(ItemTable.TABLE_ITEM, ItemTable.COLUMN_ID + " = " + id, null);
   }
 
-  private List<Item> findItems() {
+  public List<Item> getAll() {
     List<Item> items = new ArrayList<Item>();
     Cursor cursor = database.query(ItemTable.TABLE_ITEM,allColumns, null, null, null, null, null);
     cursor.moveToFirst();
@@ -72,28 +73,6 @@ public class ItemDao {
     // Make sure to close the cursor
     cursor.close();
     return items;
-
-  }
-
-  private void initDefaultItems(){
-  	for(String item : stockItems){
-  		createItem(item);
-  		Log.w(this.getClass().getName(), "Saving item to DB: " + item);
-  	}
-  	Log.w(this.getClass().getName(), "Checking items exists:");
-  	List<Item> items = getAllItems();
-  	for(Item item : items){
-  		Log.w(this.getClass().getName(), "   Item: " + item.getName());
-  	}
-  }
-
-  public List<Item> getAllItems() {
-  	List<Item> tmp = findItems();
-  	if(tmp == null || tmp.size() == 0){
-  		initDefaultItems();
-  		tmp = findItems();
-  	}
-  	return tmp;
   }
 
   private Item cursorToItem(Cursor cursor) {
@@ -103,3 +82,14 @@ public class ItemDao {
     return item ;
   }
 } 	
+
+
+
+
+
+
+
+
+
+
+
