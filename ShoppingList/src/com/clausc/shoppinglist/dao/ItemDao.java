@@ -52,7 +52,7 @@ public class ItemDao {
   public static void save(SQLiteDatabase db, String item) {
     ContentValues values = new ContentValues();
     values.put(ItemTable.COLUMN_NAME, item);
-    long insertId = db.insert(ItemTable.TABLE_ITEM, null,values);
+    db.insert(ItemTable.TABLE_ITEM, null,values);
   }
 
   public void delete(Item item) {
