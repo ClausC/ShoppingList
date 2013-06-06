@@ -26,8 +26,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
   public void onCreate(SQLiteDatabase database) {
   	Log.w(this.getClass().getName(), "onCreate");
   	new ItemTable().onCreate(database);
-  	//initDefaultItems(database);
-	  //new ItemTable().initDefaultItems(database);
   }
 
   @Override
