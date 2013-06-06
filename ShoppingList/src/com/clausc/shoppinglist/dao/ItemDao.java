@@ -57,7 +57,7 @@ public class ItemDao {
 
   public void delete(Item item) {
     int id = item.getId();
-    System.out.println("Comment deleted with id: " + id);
+    System.out.println("item deleted with id: " + id);
     database.delete(ItemTable.TABLE_ITEM, ItemTable.COLUMN_ID + " = " + id, null);
   }
 
